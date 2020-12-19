@@ -1,4 +1,7 @@
 ﻿@model FluentApi.Models.Category
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor _httpContext
 
 @{
     ViewData["Title"] = "ورود گروه طراحی گرافیک";

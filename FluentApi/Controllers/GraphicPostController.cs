@@ -1,6 +1,9 @@
-﻿using FluentApi.Data;
+﻿using FluentApi.Common;
+using FluentApi.Data;
 using FluentApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace FluentApi.Controllers
 {
+    [Authorize]
     public class GraphicPostController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -51,79 +55,148 @@ namespace FluentApi.Controllers
         // POST: GraphicPostController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(GraphicPost category)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Add(category);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category);
+        }
+
+        // GET: GraphicPostController/Edit/5
+        public async Task<IActionResult> Upsert(int? id)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                GraphicPost obj = new GraphicPost();
+                //For Insert
+                if (id == null)
+                {
+                    return View(obj);
+                }
+
+                //For Update
+                obj = await _db.GraphicPosts.FirstOrDefaultAsync(u => u.Id == id);
+                if (obj == null)
+                {
+                    return NotFound();
+                }
+
+                return View(obj);
             }
             catch
             {
                 return View();
             }
-        }
-
-        // GET: GraphicPostController/Edit/5
-        public ActionResult Upsert(int id)
-        {
-            return View();
         }
 
         // POST: GraphicPostController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Upsert(int id, IFormCollection collection)
+        public async Task<IActionResult> Upsert(GraphicPost obj)
         {
-            try
+            if (ModelState.IsValid)
             {
+                if (obj.Id == 0)
+                {
+                    //This is Create
+                    await _db.GraphicPosts.AddAsync(obj);
+                }
+                else
+                {
+                    //This is an Update
+                    _db.GraphicPosts.Update(obj);
+                }
+                await _db.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(obj);
         }
 
         // GET: GraphicPostController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var objList = await _db.GraphicPosts.FindAsync(id);
+            if (objList == null)
+            {
+                return NotFound();
+            }
+            return View(objList);
         }
 
         // POST: GraphicPostController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, GraphicPost obj)
         {
-            try
+            if (id != obj.Id)
             {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _db.GraphicPosts.Update(obj);
+                    await _db.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CategoryExists(obj.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(obj);
+        }
+
+        private bool CategoryExists(int id)
+        {
+            return _db.GraphicPosts.Any(e => e.Id == id);
         }
 
         // GET: GraphicPostController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var objList = await _db.GraphicPosts.FirstOrDefaultAsync(m => m.Id == id);
+            if (objList == null)
+            {
+                return NotFound();
+            }
+
+            return View(objList);
         }
 
         // POST: GraphicPostController/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var objList = await _db.GraphicPosts.FindAsync(id);
+            _db.GraphicPosts.Remove(objList);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
