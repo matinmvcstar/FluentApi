@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-FluentApi-343DF09B-8B41-498E-99DF-073C8A1B1881</UserSecretsId>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20201217075826_AddOneToOneNewsNCategory.cs" />
+    <Compile Remove="Data\Migrations\20201217075826_AddOneToOneNewsNCategory.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201217080026_AddOneToOneNewsNCategory.cs" />
+    <Compile Remove="Data\Migrations\20201217080026_AddOneToOneNewsNCategory.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201217151100_AddOneToManyCustomerGraphicPost.cs" />
+    <Compile Remove="Data\Migrations\20201217151100_AddOneToManyCustomerGraphicPost.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201217163434_AddManyToMany.cs" />
+    <Compile Remove="Data\Migrations\20201217163434_AddManyToMany.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201217193534_AddSQLINSERTTOCATEGORIESDATABASE.cs" />
+    <Compile Remove="Data\Migrations\20201217193534_AddSQLINSERTTOCATEGORIESDATABASE.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201217202534_AddSQLPERSIAN.cs" />
+    <Compile Remove="Data\Migrations\20201217202534_AddSQLPERSIAN.Designer.cs" />
+    <Compile Remove="Data\Migrations\20201217205319_AddSQLPERSIAN.cs" />
+    <Compile Remove="Data\Migrations\20201217205319_AddSQLPERSIAN.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="5.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore" Version="5.0.1" />
+  </ItemGroup>
+
+</Project>
