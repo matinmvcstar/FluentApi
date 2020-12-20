@@ -14,7 +14,7 @@ namespace FluentApi.Controllers
     {
         private readonly ApplicationDbContext _db;
 
-        public LearnPostsController(ApplicationDbContext db)
+        public LearnPostsController(ApplicationDbContext context)
         {
             _db = db;
         }
